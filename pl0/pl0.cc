@@ -9,13 +9,13 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "llvm/ExecutionEngine/ExecutionEngine.h"
-#include "llvm/ExecutionEngine/GenericValue.h"
-#include "llvm/ExecutionEngine/MCJIT.h"
-#include "llvm/IR/IRBuilder.h"
-#include "llvm/IR/ValueSymbolTable.h"
-#include "llvm/IR/Verifier.h"
-#include "llvm/Support/TargetSelect.h"
+#include <llvm/ExecutionEngine/ExecutionEngine.h>
+#include <llvm/ExecutionEngine/GenericValue.h>
+#include <llvm/ExecutionEngine/MCJIT.h>
+#include <llvm/IR/IRBuilder.h>
+#include <llvm/IR/ValueSymbolTable.h>
+#include <llvm/IR/Verifier.h>
+#include <llvm/Support/TargetSelect.h>
 
 using namespace peg;
 using namespace peg::udl;
@@ -951,9 +951,9 @@ int main(int argc, const char** argv) {
   // Setup a PEG parser
   parser parser(grammar);
   parser.enable_ast<AstPL0>();
-  parser.log = [&](size_t ln, size_t col, const string& msg) {
+  parser.set_logger([&](size_t ln, size_t col, const string& msg) {
     cerr << format_error_message(path, ln, col, msg) << endl;
-  };
+  });
 
   // Parse the source and make an AST
   shared_ptr<AstPL0> ast;
